@@ -1,0 +1,339 @@
+ :root {
+  --bg-color: #f4f4f9;
+  --text-color: #333;
+  --card-bg: white;
+  --border-color: #e0e0e0;
+  --primary-color: #3498db;
+  --primary-hover: #2980b9;
+  --highlight-bg: #f1c40f;
+  --shop-badge-bg: #27ae60;
+  --path-step-bg: #f8f9fa;
+  --path-step-border: #eee;
+  --arrow-color: #bbb;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #f4f4f9;
+  --card-bg: #2c2c2c;
+  --border-color: #444;
+  --primary-color: #3498db;
+  --primary-hover: #2980b9;
+  --highlight-bg: #f39c12;
+  --shop-badge-bg: #219653;
+  --path-step-bg: #3a3a3a;
+  --path-step-border: #555;
+  --arrow-color: #888;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.lang-wrapper {
+  position: relative;
+  max-width: 200px;
+  margin: 0 auto 28px;
+}
+
+#langSelector {
+  display: block;
+  width: 100%;
+  padding: 12px 16px 12px 48px;       /* место слева под иконку */
+  font-size: 16px;
+  color: var(--text-color);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+#langSelector:hover,
+#langSelector:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Иконка глобуса слева */
+.lang-wrapper::before {
+  content: "🌐";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Стрелка справа */
+#langSelector::after {
+  content: "▼";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--primary-hover);
+  opacity: 0.6;
+  font-size: 12px;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 30px;
+}
+
+/* Стили блока поиска */
+.search-wrapper {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  margin-bottom: 30px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  position: relative;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 14px;
+  padding-right: 40px;
+  /* место для крестика */
+  font-size: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Кнопка очистки (крестик) */
+.clear-btn {
+  position: absolute;
+  right: 130px;
+  /* Подвинул левее кнопки Найти */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  display: none;
+  /* Скрыт по умолчанию */
+}
+
+/* Главная кнопка поиска */
+.search-btn {
+  padding: 0 30px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.search-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Быстрые кнопки (Чипсы) */
+.quick-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chip-btn {
+  background-color: var(--path-step-bg);
+  border: 1px solid var(--path-step-border);
+  color: var(--text-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.chip-btn:hover {
+  background-color: #dbeafe;
+  border-color: var(--primary-color);
+  color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Карточки результатов */
+.result-card {
+  background: var(--card-bg);
+  border-left: 5px solid var(--primary-color);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  animation: fadeIn 0.3s ease-in;
+}
+
+.path-display {
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  line-height: 1.8;
+}
+
+.path-step {
+  background: var(--path-step-bg);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--path-step-border);
+  margin: 2px;
+}
+
+.arrow {
+  margin: 0 6px;
+  color: var(--arrow-color);
+  font-size: 0.8em;
+}
+
+.shops-list {
+  margin-top: 12px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.shop-badge {
+  display: inline-block;
+  background-color: var(--shop-badge-bg);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  margin: 3px;
+  font-size: 0.95em;
+}
+
+.highlight {
+  background-color: var(--highlight-bg);
+  color: #000;
+  border-color: #f39c12;
+}
+
+ .scheme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+.scheme a {
+    margin: 0 auto;
+    color: #000;
+    background-color: var(--path-step-bg);
+    border: 1px solid var(--path-step-border);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+    .scheme a:hover {
+    background-color: #dbeafe;
+    border-color: var(--primary-color);
+    color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column;
+  }
+
+  .search-btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .clear-btn {
+    right: 15px;
+    top: 22px;
+  }
+
+  /* Коррекция крестика на мобильных */
+  input[type="text"] {
+    padding-right: 35px;
+  }
+}
+
+/* Toggle for dark mode */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.theme-toggle::before {
+  content: '🌙';
+  font-size: 24px;
+}
+
+body.dark .theme-toggle::before {
+  content: '☀️';
+}
