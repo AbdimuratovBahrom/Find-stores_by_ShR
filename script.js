@@ -1,8 +1,10 @@
-// Переводы (аналогично вашему translations)
+
+
+// Переводы
 const translations = {
   ru: {
     title: 'Поиск схемы электропитания',
-    placeholder: 'Введите ЩР, ШО, Ряд или номер магазина (например: ЩР 17, ШО-0, 25)...',
+    placeholder: 'Введите ЩР, ШО, Ряд или номер магазина (например: ЩР-17, ШО-0, 25)...',
     search_btn: 'Найти',
     chip1: 'ЩР',
     chip2: 'ШО',
@@ -14,7 +16,7 @@ const translations = {
   },
   uz_cyrl: {
     title: 'Электр таъминоти схемасини қидириш',
-    placeholder: 'ЩР, ШО, Ряд ёки дўкон рақамини киритинг (масалан: ЩР 17, ШО-0, 25)...',
+    placeholder: 'ЩР, ШО, Ряд ёки дўкон рақамини киритинг (масалан: ЩР-17, ШО-0, 25)...',
     search_btn: 'Топиш',
     chip1: 'ЩР',
     chip2: 'ШО',
@@ -26,7 +28,7 @@ const translations = {
   },
   uz_latn: {
     title: "Elektr ta'minoti sxemasini qidirish",
-    placeholder: "ShR, ShO, Ryad yoki do'kon raqamini kiriting (masalan: ShR 17, ShO-0, 25)...",
+    placeholder: "ShR, ShO, Ryad yoki do'kon raqamini kiriting (masalan: ShR-17, ShO-0, 25)...",
     search_btn: 'Topish',
     chip1: 'ShR',
     chip2: 'ShO',
@@ -38,7 +40,7 @@ const translations = {
   }
 };
 
-// Транслитерация (для поиска на латинице)
+// Транслитерация
 const uz_cyr_to_lat = {
   'а':'a','А':'A','б':'b','Б':'B','в':'v','В':'V','г':'g','Г':'G','д':'d','Д':'D',
   'е':'e','Е':'E','ё':'yo','Ё':'Yo','ж':'j','Ж':'J','з':'z','З':'Z','и':'i','И':'I',
@@ -58,12 +60,55 @@ let data = [];
 let currentLang = localStorage.getItem('lang') || 'ru';
 let t = translations[currentLang];
 
+// Нормализация для поиска (убираем всё лишнее)
+function normalizeForSearch(str) {
+  return str
+    .toLowerCase()
+    .replace(/[\s\-–—−•·.,;:!?()]+/g, '')   // все разделители → ''
+    .replace(/ё/g, 'е')
+    .replace(/ъ/g, "'")
+    .replace(/ь/g, "")
+    .trim();
+}
+
+// Обновление кнопок в зависимости от языка
+function updateQuickButtons() {
+  const container = document.getElementById('quickActions');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  let buttonsConfig = [];
+
+  if (currentLang === 'uz_latn') {
+    buttonsConfig = [
+      { display: 'ShR ', insert: 'ShR ' },
+      { display: 'ShO-', insert: 'ShO-' },
+      { display: 'Ryad ', insert: 'Ryad ' }
+    ];
+  } else {
+    buttonsConfig = [
+      { display: 'ЩР ', insert: 'ЩР ' },
+      { display: 'ШО-', insert: 'ШО-' },
+      { display: 'Ряд ', insert: 'Ряд ' }
+    ];
+  }
+
+  buttonsConfig.forEach(config => {
+    const btn = document.createElement('button');
+    btn.className = 'chip-btn';
+    btn.textContent = config.display;
+    btn.onclick = () => addPrefix(config.insert);
+    container.appendChild(btn);
+  });
+}
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('langSelector').value = currentLang;
   applyTranslations();
+  updateQuickButtons();
 
-  // Загрузка данных
   try {
     const res = await fetch('data.json');
     data = await res.json();
@@ -71,17 +116,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('resultsContainer').innerHTML = `<p style="color:red; text-align:center;">${t.error}</p>`;
   }
 
-  // Тема
   if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark');
   }
 
-  // Enter для поиска
   document.getElementById('searchInput').addEventListener('keypress', e => {
     if (e.key === 'Enter') performSearch();
   });
 
-  // Показ крестика
   document.getElementById('searchInput').addEventListener('input', function() {
     document.getElementById('clearBtn').style.display = this.value ? 'block' : 'none';
   });
@@ -92,16 +134,15 @@ function applyTranslations() {
   document.getElementById('title').textContent = '⚡ ' + t.title;
   document.getElementById('searchInput').placeholder = t.placeholder;
   document.querySelector('.search-btn').textContent = t.search_btn;
-  document.querySelectorAll('.chip-btn')[0].textContent = t.chip1;
-  document.querySelectorAll('.chip-btn')[1].textContent = t.chip2 + '-';
-  document.querySelectorAll('.chip-btn')[2].textContent = t.chip3;
+  // Убрали перезапись .chip-btn — теперь они только через updateQuickButtons
 }
 
 function changeLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('lang', lang);
   applyTranslations();
-  performSearch(); // перерисовать результаты на новом языке
+  updateQuickButtons();
+  performSearch();
 }
 
 function toggleTheme() {
@@ -123,24 +164,29 @@ function clearSearch() {
 }
 
 async function performSearch() {
-  const query = document.getElementById('searchInput').value.trim();
+  const rawQuery = document.getElementById('searchInput').value.trim();
   const container = document.getElementById('resultsContainer');
-  if (!query) return;
+  
+  if (!rawQuery) {
+    container.innerHTML = '';
+    return;
+  }
 
   container.innerHTML = `<p style="text-align:center; color:#777;">${t.searching}</p>`;
 
-  const normQuery = query.toLowerCase().replace(/\s+/g, '');
+  const userNorm = normalizeForSearch(rawQuery);
 
   const results = data.filter(item => {
-    let pathCheck = item.path.toLowerCase().replace(/\s+/g, '');
-    let shopsCheck = item.shops.map(s => s.toLowerCase());
+    let pathNorm = normalizeForSearch(item.path);
+    let shopsNorm = item.shops.map(s => normalizeForSearch(s));
 
     if (currentLang === 'uz_latn') {
-      pathCheck = transliterate(item.path).toLowerCase().replace(/\s+/g, '');
-      shopsCheck = item.shops.map(s => transliterate(s).toLowerCase());
+      pathNorm = normalizeForSearch(transliterate(item.path));
+      shopsNorm = item.shops.map(s => normalizeForSearch(transliterate(s)));
     }
 
-    return pathCheck.includes(normQuery) || shopsCheck.some(sh => sh.includes(normQuery));
+    return pathNorm.includes(userNorm) ||
+           shopsNorm.some(s => s.includes(userNorm));
   });
 
   container.innerHTML = '';
@@ -154,31 +200,32 @@ async function performSearch() {
     const card = document.createElement('div');
     card.className = 'result-card';
 
-    // Путь с подсветкой
-    const pathParts = item.path.split('>').map(p => p.trim());
+    // Путь — отображаем в нужном алфавите
+    const displayPath = (currentLang === 'uz_latn') ? transliterate(item.path) : item.path;
+    const pathParts = displayPath.split('>').map(p => p.trim());
     let pathHtml = '';
-    pathParts.forEach((part, i) => {
-      const match = part.toLowerCase().replace(/\s/g, '').includes(normQuery);
-      const cls = match ? 'path-step highlight' : 'path-step';
-      pathHtml += `<span class="${cls}">${part}</span>`;
-      if (i < pathParts.length - 1) pathHtml += '<span class="arrow">➤</span>';
+
+    pathParts.forEach((part, index) => {
+      const normPart = normalizeForSearch(part);
+      const isMatch = normPart.includes(userNorm);
+      const className = isMatch ? 'path-step highlight' : 'path-step';
+      pathHtml += `<span class="${className}">${part}</span>`;
+      if (index < pathParts.length - 1) pathHtml += '<span class="arrow">➤</span>';
     });
 
-    // Магазины с подсветкой
+    // Магазины
     let shopsHtml = `<div class="shops-list"><small style="color:#777">${t.stores_label}:</small><br>`;
-    item.shops.forEach(shop => {
-      const match = shop.toLowerCase() === query.toLowerCase();
-      const cls = match ? 'shop-badge highlight' : 'shop-badge';
-      shopsHtml += `<span class="${cls}">${shop}</span> `;
+    const displayShops = (currentLang === 'uz_latn') ? item.shops.map(s => transliterate(s)) : item.shops;
+
+    displayShops.forEach(shop => {
+      const normShop = normalizeForSearch(shop);
+      const isMatch = normShop.includes(userNorm);
+      const shopClass = isMatch ? 'shop-badge highlight' : 'shop-badge';
+      shopsHtml += `<span class="${shopClass}">${shop}</span> `;
     });
     shopsHtml += '</div>';
 
     card.innerHTML = `<div class="path-display">${pathHtml}</div>${shopsHtml}`;
     container.appendChild(card);
   });
-}
-
-function addPrefixByLang(cyril, latin) {
-  const prefix = (currentLang === 'uz_latn') ? latin : cyril;
-  addPrefix(prefix);
 }
