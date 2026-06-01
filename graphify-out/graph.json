@@ -1,0 +1,385 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "settings.json",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L1",
+      "id": "claude_settings",
+      "community": 1,
+      "norm_label": "settings.json"
+    },
+    {
+      "label": "hooks",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L2",
+      "id": "claude_settings_hooks",
+      "community": 1,
+      "norm_label": "hooks"
+    },
+    {
+      "label": "PreToolUse",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L3",
+      "id": "claude_settings_hooks_pretooluse",
+      "community": 1,
+      "norm_label": "pretooluse"
+    },
+    {
+      "label": "data.json",
+      "file_type": "code",
+      "source_file": "data.json",
+      "source_location": "L1",
+      "id": "data",
+      "community": 5,
+      "norm_label": "data.json"
+    },
+    {
+      "label": "script.js",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L1",
+      "id": "script",
+      "community": 0,
+      "norm_label": "script.js"
+    },
+    {
+      "label": "translations",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L4",
+      "id": "script_translations",
+      "community": 0,
+      "norm_label": "translations"
+    },
+    {
+      "label": "uz_cyr_to_lat",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L44",
+      "id": "script_uz_cyr_to_lat",
+      "community": 0,
+      "norm_label": "uz_cyr_to_lat"
+    },
+    {
+      "label": "transliterate()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L55",
+      "id": "script_transliterate",
+      "community": 0,
+      "norm_label": "transliterate()"
+    },
+    {
+      "label": "data",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L59",
+      "id": "script_data",
+      "community": 0,
+      "norm_label": "data"
+    },
+    {
+      "label": "normalizeForSearch()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L64",
+      "id": "script_normalizeforsearch",
+      "community": 4,
+      "norm_label": "normalizeforsearch()"
+    },
+    {
+      "label": "updateQuickButtons()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L75",
+      "id": "script_updatequickbuttons",
+      "community": 2,
+      "norm_label": "updatequickbuttons()"
+    },
+    {
+      "label": "applyTranslations()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L132",
+      "id": "script_applytranslations",
+      "community": 2,
+      "norm_label": "applytranslations()"
+    },
+    {
+      "label": "changeLanguage()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L140",
+      "id": "script_changelanguage",
+      "community": 2,
+      "norm_label": "changelanguage()"
+    },
+    {
+      "label": "toggleTheme()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L148",
+      "id": "script_toggletheme",
+      "community": 0,
+      "norm_label": "toggletheme()"
+    },
+    {
+      "label": "addPrefix()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L153",
+      "id": "script_addprefix",
+      "community": 0,
+      "norm_label": "addprefix()"
+    },
+    {
+      "label": "clearSearch()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L160",
+      "id": "script_clearsearch",
+      "community": 0,
+      "norm_label": "clearsearch()"
+    },
+    {
+      "label": "performSearch()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L166",
+      "id": "script_performsearch",
+      "community": 4,
+      "norm_label": "performsearch()"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "id": "claude",
+      "community": 3,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "graphify",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "id": "claude_graphify",
+      "community": 3,
+      "norm_label": "graphify"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme",
+      "community": 6,
+      "norm_label": "readme.md"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "claude_settings",
+      "target": "claude_settings_hooks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "claude_settings_hooks",
+      "target": "claude_settings_hooks_pretooluse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L153",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_addprefix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L132",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_applytranslations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L140",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_changelanguage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_clearsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_data",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_normalizeforsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L166",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_performsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_toggletheme",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_translations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_transliterate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_updatequickbuttons",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_uz_cyr_to_lat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L177",
+      "weight": 1.0,
+      "source": "script_performsearch",
+      "target": "script_normalizeforsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "script_changelanguage",
+      "target": "script_updatequickbuttons",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "script_changelanguage",
+      "target": "script_applytranslations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "script_changelanguage",
+      "target": "script_performsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "claude",
+      "target": "claude_graphify",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "f81d0f807a66192774614d04f0e7b86121c4448e"
+}
