@@ -80,18 +80,6 @@ body {
   z-index: 1;
 }
 
-/* Стрелка справа */
-#langSelector::after {
-  content: "▼";
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--primary-hover);
-  opacity: 0.6;
-  font-size: 12px;
-}
 
 h1 {
   text-align: center;
@@ -111,14 +99,18 @@ h1 {
 .input-group {
   display: flex;
   gap: 10px;
+}
+
+.input-wrapper {
+  flex-grow: 1;
   position: relative;
 }
 
 input[type="text"] {
-  flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
   padding: 14px;
   padding-right: 40px;
-  /* место для крестика */
   font-size: 18px;
   border: 2px solid var(--border-color);
   border-radius: 8px;
@@ -135,8 +127,7 @@ input[type="text"]:focus {
 /* Кнопка очистки (крестик) */
 .clear-btn {
   position: absolute;
-  right: 130px;
-  /* Подвинул левее кнопки Найти */
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -145,7 +136,6 @@ input[type="text"]:focus {
   color: #999;
   cursor: pointer;
   display: none;
-  /* Скрыт по умолчанию */
 }
 
 /* Главная кнопка поиска */
@@ -258,7 +248,6 @@ input[type="text"]:focus {
   }
 .scheme a {
     margin: 0 auto;
-    color: #000;
     background-color: var(--path-step-bg);
     border: 1px solid var(--path-step-border);
     color: var(--text-color);
@@ -301,14 +290,8 @@ input[type="text"]:focus {
     padding: 12px;
   }
 
-  .clear-btn {
-    right: 15px;
-    top: 22px;
-  }
-
-  /* Коррекция крестика на мобильных */
   input[type="text"] {
-    padding-right: 35px;
+    padding-right: 40px;
   }
 }
 

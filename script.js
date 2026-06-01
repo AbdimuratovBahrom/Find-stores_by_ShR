@@ -57,6 +57,7 @@ function transliterate(text) {
 }
 
 let data = [];
+let dataLoadError = false;
 let currentLang = localStorage.getItem('lang') || 'ru';
 let t = translations[currentLang];
 
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const res = await fetch('data.json');
     data = await res.json();
   } catch (e) {
+    dataLoadError = true;
     document.getElementById('resultsContainer').innerHTML = `<p style="color:red; text-align:center;">${t.error}</p>`;
   }
 
@@ -163,10 +165,15 @@ function clearSearch() {
   document.getElementById('resultsContainer').innerHTML = '';
 }
 
-async function performSearch() {
+function performSearch() {
   const rawQuery = document.getElementById('searchInput').value.trim();
   const container = document.getElementById('resultsContainer');
-  
+
+  if (dataLoadError) {
+    container.innerHTML = `<p style="color:red; text-align:center;">${t.error}</p>`;
+    return;
+  }
+
   if (!rawQuery) {
     container.innerHTML = '';
     return;
